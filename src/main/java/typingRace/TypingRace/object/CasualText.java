@@ -51,7 +51,7 @@ public class CasualText {
 		try {
 			fileLength= calcLength(wordsSource);
 //			System.out.println(fileLength);
-				BufferedReader lettoreDiRighe=null;
+			BufferedReader lettoreDiRighe=null;
 			for(int i=0; i<length; i++) {
 				openFile();
 				lettoreDiRighe = new BufferedReader(file);

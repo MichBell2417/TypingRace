@@ -34,8 +34,22 @@ public class App extends Application {
         
         bClass.setFocusTraversable(false);
         bChangeStatus.setFocusTraversable(false);
+
+		bClass.prefWidthProperty().bind(grid.widthProperty());
+		bClass.setMaxWidth(300);
+		bClass.setMinWidth(100);
+		bChangeStatus.prefWidthProperty().bind(grid.widthProperty());
+		bChangeStatus.setMaxWidth(300);
+		bChangeStatus.setMinWidth(100);
+		bClass.prefHeightProperty().bind(grid.heightProperty());
+		bClass.setMaxHeight(300);
+		bClass.setMaxHeight(100);
+		bChangeStatus.prefHeightProperty().bind(grid.heightProperty());
+		bChangeStatus.setMaxHeight(300);
+		bChangeStatus.setMaxHeight(100);
         
         text.setWrapText(true);
+        text.setEditable(false);
         
         Scene scene= new Scene(grid);
         window.setScene(scene);
@@ -60,15 +74,8 @@ public class App extends Application {
     		this.interfaccia=1;
     		Label title = new Label("TypingRace");
     		
-    		CasualText text=new CasualText(80, "C:\\Users\\belmi\\Desktop\\Archivio\\workspaces-JAVA\\TypingRace\\TypingRace\\src\\main\\resources\\typingRace\\TypingRace\\italian.txt");
+    		CasualText text=new CasualText(100, "C:\\Users\\belmi\\Desktop\\Archivio\\workspaces-JAVA\\TypingRaceWorkspace\\TypingRaceProject\\src\\main\\resources\\typingRace\\TypingRace\\italian.txt");
     		this.text.setText(text.generateText());
-    		
-    		bClass.prefWidthProperty().bind(grid.widthProperty());
-    		bClass.setMaxWidth(300);
-    		bClass.setMinWidth(100);
-    		bChangeStatus.prefWidthProperty().bind(grid.widthProperty());
-    		bChangeStatus.setMaxWidth(300);
-    		bChangeStatus.setMinWidth(100);
     		
     		grid.add(title, 0, 0, 2, 1);
     		grid.add(keyboard, 0, 1, 2, 1);
