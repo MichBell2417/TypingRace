@@ -1,0 +1,4 @@
+--patch-module
+typingRace.TypingRace=_
+--add-reads
+typingRace.TypingRace=ALL-UNNAMED
