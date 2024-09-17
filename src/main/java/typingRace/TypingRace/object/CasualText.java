@@ -5,18 +5,18 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.util.Random;
 
 /**
  * This class take casual word from a text file and create a meaningless text
  */
 public class CasualText {
 	
-	int length;
-	FileReader file;
+	private int length;
+	private FileReader file;
 	
-	String text="********";
-	String wordsSource;
+	private String text="********";
+	private String wordsSource;
+	
 	public CasualText(int length) {
 		this.length=length;
 	}
@@ -26,7 +26,8 @@ public class CasualText {
 		openFile();
 	}
 	
-	private int calcLength(String path) throws IOException {
+	//senza modificatore di visibilità il metodo è utilizzabile solo nella stessa classe e nel pacchetto
+	static int calcLength(String path) throws IOException {
 		FileReader file= new FileReader(path);
 		LineNumberReader lineNumberReader = new LineNumberReader(file);
 		lineNumberReader.skip(Long.MAX_VALUE);
@@ -40,7 +41,6 @@ public class CasualText {
 		try {
 			file= new FileReader(wordsSource);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -56,7 +56,7 @@ public class CasualText {
 				openFile();
 				lettoreDiRighe = new BufferedReader(file);
 				int nRiga=(int)(Math.random()*fileLength);
-				System.out.println(nRiga);
+//				System.out.println(nRiga);
 				String word;
 				do {
 					word = lettoreDiRighe.readLine();
