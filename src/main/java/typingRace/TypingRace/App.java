@@ -1,5 +1,6 @@
 package typingRace.TypingRace;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -30,7 +31,10 @@ public class App extends Application {
 	TextField writtenText = new TextField();
 	GridPane keyboard = new GridPane();
 	Label text = new Label();
-	Label WPM = new Label("- WPM");
+	Label eWPM = new Label("- WPM");
+	
+	int time=0;
+	double WPM;
 	
 	Button bReset=new Button("Reset");
 	
@@ -89,20 +93,25 @@ public class App extends Application {
         window.setTitle("Typing Race");
         changeInterface(1);
         window.show();
-        scene.setOnKeyPressed(event -> takeClickedKey(event));
     }
     
     public void execute() {
-    	
-    }
-    
-    public void takeClickedKey(KeyEvent key){
-    	String letter=key.getCode().toString();
-    	System.out.println(letter);
-    	if(status) {
-    		
-    		words+=letter;
-    		writtenText.setText(words);
+    	String[] word=text.getText().split(" ");
+    	String[] writtenWords = writtenText.getText().split(" ");
+    	int rightWords=0;
+    	for(int i=0; i<writtenWords.length; i++) {
+    		if(word[i].equals(writtenWords[i])) {
+//    			System.out.println(word[i]+"=="+writtenWords[i]);
+    			rightWords++;
+    		}else {
+//    			System.out.println(word[i]+"!="+writtenWords[i]);
+    		}
+    	}
+    	time+=50;
+    	WPM=rightWords*60/(time/1000.0);
+    	eWPM.setText(""+(int)WPM+" WPM");
+    	if(rightWords==word.length) {
+    		changeStatus();
     	}
     }
     
@@ -113,13 +122,14 @@ public class App extends Application {
     		changeInterface(2);
     	}
     }
+    
     public void changeInterface(int interfaccia) {
     	grid.getChildren().clear();
     	if(interfaccia==1) {
     		nInterface=1;
     		Label title = new Label("TypingRace");
     		
-    		CasualText text=new CasualText(10, "C:\\Users\\belmi\\Desktop\\Archivio\\workspaces-JAVA\\TypingRaceWorkspace\\TypingRaceProject\\src\\main\\resources\\typingRace\\TypingRace\\italian.txt");
+    		CasualText text = new CasualText(10, "C:\\Users\\belmi\\Desktop\\Archivio\\workspaces-JAVA\\TypingRaceWorkspace\\TypingRaceProject\\src\\main\\resources\\typingRace\\TypingRace\\italian.txt");
     		this.text.setText(text.generateText());
     		
     		bInterface.setText("Classification");
@@ -128,7 +138,7 @@ public class App extends Application {
     		grid.add(keyboard, 0, 1, 2, 1);
     		grid.add(this.text, 0, 2, 2, 1);
     		grid.add(writtenText, 0, 3, 2, 1);
-    		grid.add(WPM, 0, 4, 2, 1);
+    		grid.add(eWPM, 0, 4, 2, 1);
     		grid.add(bInterface, 0, 5);
     		grid.add(bChangeStatus, 1, 5);
     	}else if(interfaccia==2) {
@@ -178,13 +188,19 @@ public class App extends Application {
     		if(bChangeStatus.getText().equals("START")) {
 	    		bChangeStatus.setText("RESET");
 	    		writtenText.setDisable(false);
+	    		writtenText.setFocusTraversable(true);
 	    		status=true;
+	    		whileTyping.setCycleCount(Animation.INDEFINITE);
+	    		whileTyping.play();
 	    	}else if(bChangeStatus.getText().equals("RESET")){
 	    		changeInterface(1);
-	    		raccoltaPartite.saveData((int)(Math.random()*70));
+	    		raccoltaPartite.saveData((int)WPM);
+	    		time=0;
 	    		bChangeStatus.setText("START");
+	    		writtenText.setText("");
 	    		writtenText.setDisable(true);
 	    		status=false;
+	    		whileTyping.stop();
 	    	}
     	}
     }
