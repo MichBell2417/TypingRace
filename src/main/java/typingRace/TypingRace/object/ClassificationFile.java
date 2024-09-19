@@ -19,13 +19,13 @@ public class ClassificationFile {
 	public void saveData(int wpm) {
 		String[] dati=getData();
 		try (
-			FileWriter file= new FileWriter(filePath);){
-			for(int i=1; i<dati.length; i++) {
+			FileWriter file= new FileWriter(filePath);
+				){
+			for(int i=0; i<dati.length; i++) {
 				file.write(dati[i]+"\n");
 			}
-			file.write(wpm + "\n");
+			file.write(wpm+"");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -38,6 +38,7 @@ public class ClassificationFile {
 			FileReader file = new FileReader(filePath);
 			BufferedReader input = new BufferedReader(file);
 			){
+			System.out.println(CasualText.calcLength(filePath));
 			output = new String[CasualText.calcLength(filePath)];
 			outputInt = new int[CasualText.calcLength(filePath)];
 			int i=0;
@@ -51,34 +52,49 @@ public class ClassificationFile {
 			e.printStackTrace();
 		}
 		Arrays.sort(outputInt);
+		for(int i=0; i<outputInt.length/2; i++) {
+			System.out.println(outputInt[i]+">"+outputInt[(outputInt.length-1)-i]);
+			int appoggio=outputInt[i];
+			outputInt[i]=outputInt[(outputInt.length-1)-i];
+			outputInt[(outputInt.length-1)-i]=appoggio;
+			System.out.println(outputInt[i]+">"+outputInt[(outputInt.length-1)-i]);
+			System.out.println("------");
+		}
 		for(int i=0; i<outputInt.length; i++) {
 			output[i]=""+outputInt[i];
 		}
 		return output;
 	}
 	
-	public String getRecord() {
-		String[] data=getData();
-		int num=Integer.parseInt(data[0]);
-		int maggiore=num;
-		for(int i=1; i<data.length; i++){
-			num=Integer.parseInt(data[i]);
-			if(num>maggiore) {
-				maggiore=num;
+	public String getRecord(String[] data) {
+		try{
+			int num=Integer.parseInt(data[0]);
+			int maggiore=num;
+			for(int i=1; i<data.length; i++){
+				num=Integer.parseInt(data[i]);
+				if(num>maggiore) {
+					maggiore=num;
+				}
 			}
+			return ""+maggiore;
+		}catch(ArrayIndexOutOfBoundsException e){
+			return ""+0;
 		}
-		return ""+maggiore;
+		
 	}
 	
-	public String getAvarage() {
-		String[] data=getData();
-		int num=Integer.parseInt(data[0]);
-		int media=num;
-		for(int i=1; i<data.length; i++){
-			num=Integer.parseInt(data[i]);
-			media+=num;
+	public String getAvarage(String[] data) {
+		try{
+			int num=Integer.parseInt(data[0]);
+			int media=num;
+			for(int i=1; i<data.length; i++){
+				num=Integer.parseInt(data[i]);
+				media+=num;
+			}
+			return ""+(media/(data.length));
+		}catch(ArrayIndexOutOfBoundsException e){
+			return ""+0;
 		}
-		return ""+(media/data.length);
 	}
 	
 	public void resetFile() {

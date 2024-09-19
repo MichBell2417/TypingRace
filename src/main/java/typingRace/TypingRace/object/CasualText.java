@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.nio.charset.Charset;
 
 /**
  * This class take casual word from a text file and create a meaningless text
@@ -31,7 +32,7 @@ public class CasualText {
 		FileReader file= new FileReader(path);
 		LineNumberReader lineNumberReader = new LineNumberReader(file);
 		lineNumberReader.skip(Long.MAX_VALUE);
-		int numRow=lineNumberReader.getLineNumber()+1;
+		int numRow=lineNumberReader.getLineNumber();
 		lineNumberReader.close();
 		file.close();
 		return numRow;
@@ -39,8 +40,10 @@ public class CasualText {
 	
 	private void openFile() {
 		try {
-			file= new FileReader(wordsSource);
+			file= new FileReader(wordsSource, Charset.forName("UTF-8"));
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -49,19 +52,19 @@ public class CasualText {
 		text="";
 		int fileLength=-1;
 		try {
-			fileLength= calcLength(wordsSource);
-//			System.out.println(fileLength);
+			fileLength = calcLength(wordsSource);
+			System.out.println(fileLength);
 			BufferedReader lettoreDiRighe=null;
 			for(int i=0; i<length; i++) {
 				openFile();
 				lettoreDiRighe = new BufferedReader(file);
-				int nRiga=(int)(Math.random()*fileLength);
-//				System.out.println(nRiga);
-				String word;
-				do {
+				int nRiga=(int)(Math.random()*fileLength)+1;
+				System.out.println(nRiga);
+				String word="!!ERRORE!!";
+				while(nRiga-->0) {
 					word = lettoreDiRighe.readLine();
-				}while(nRiga-->0);
-//				System.out.println(word);
+				}
+				System.out.println(word);
 				text+=word+" ";
 			}
 			lettoreDiRighe.close();

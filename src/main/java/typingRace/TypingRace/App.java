@@ -159,15 +159,15 @@ public class App extends Application {
 
     		ObservableList<MatchData> dataList = FXCollections.observableArrayList();
     		classificationTable.setItems(dataList);
-    		for (int i = 1; i < data.length; i++) {
-    		    dataList.add(new MatchData(""+(i), data[i]));
+    		for (int i = 0; i < data.length; i++) {
+    		    dataList.add(new MatchData(""+(i+1), data[i]));
 //    		    System.out.println(data[i]);
     		}
     		
     		Label lRecord=new Label("Record:");
-    		Label record=new Label(raccoltaPartite.getRecord());
+    		Label record=new Label(raccoltaPartite.getRecord(data));
     		Label lAvarage=new Label("Avarage:");
-    		Label avarage=new Label(raccoltaPartite.getAvarage());
+    		Label avarage=new Label(raccoltaPartite.getAvarage(data));
     		
     		bInterface.setText("Play");
     		
