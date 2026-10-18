@@ -1,2 +1,5 @@
 # TypingRace
-La seguente repository contiene il codice scritto in Java di un programma utile a calcolare e archiviare le parole per minuto che vengono copiate e riscritte in modo corretto.
+Codice OOP in java che permette di mettersi alla prova e vedere quale è la velocità con cui stai scrivendo.
+
+## status
+Il programma è in pieno sviluppo non è da considerarsi realizzato ma al suo stato iniziale. 
