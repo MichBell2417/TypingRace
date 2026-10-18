@@ -1,5 +1,7 @@
 package typingRace.TypingRace;
 
+import java.io.File;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,11 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -38,7 +37,10 @@ public class App extends Application {
 	
 	Button bReset=new Button("Reset");
 	
-	ClassificationFile raccoltaPartite= new ClassificationFile("C:\\Users\\belmi\\Desktop\\Archivio\\workspaces-JAVA\\TypingRaceWorkspace\\TypingRaceProject\\src\\main\\resources\\typingRace\\TypingRace\\classification.txt");
+	File currentDir = new File ("");
+	String resourcesPath = currentDir.getAbsolutePath() + "\\src\\main\\resources\\typingRace\\TypingRace";
+	
+	ClassificationFile raccoltaPartite=new ClassificationFile(resourcesPath+"\\classification.txt");
 	
 	Timeline whileTyping = new Timeline(new KeyFrame(Duration.millis(50), e->execute()));
 	
@@ -48,6 +50,7 @@ public class App extends Application {
 	
     @Override
     public void start(Stage window) {
+    	
     	grid.setAlignment(Pos.CENTER);
     	
         bChangeStatus.setOnAction(e->changeStatus());
@@ -129,7 +132,7 @@ public class App extends Application {
     		nInterface=1;
     		Label title = new Label("TypingRace");
     		
-    		CasualText text = new CasualText(10, "C:\\Users\\belmi\\Desktop\\Archivio\\workspaces-JAVA\\TypingRaceWorkspace\\TypingRaceProject\\src\\main\\resources\\typingRace\\TypingRace\\italian.txt");
+    		CasualText text = new CasualText(10, resourcesPath+"\\italian.txt");
     		this.text.setText(text.generateText());
     		
     		bInterface.setText("Classification");

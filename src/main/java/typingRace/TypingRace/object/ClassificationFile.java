@@ -1,8 +1,6 @@
 package typingRace.TypingRace.object;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,10 +19,12 @@ public class ClassificationFile {
 		try (
 			FileWriter file= new FileWriter(filePath);
 				){
-			for(int i=0; i<dati.length; i++) {
-				file.write(dati[i]+"\n");
+			if(dati.length!=0) {
+				for(int i=0; i<dati.length; i++) {
+					file.write(dati[i]+"\n");
+				}
 			}
-			file.write(wpm+"");
+			file.write(wpm+"\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,15 +38,14 @@ public class ClassificationFile {
 			FileReader file = new FileReader(filePath);
 			BufferedReader input = new BufferedReader(file);
 			){
-			System.out.println(CasualText.calcLength(filePath));
-			output = new String[CasualText.calcLength(filePath)];
-			outputInt = new int[CasualText.calcLength(filePath)];
+			int length=CasualText.calcLength(filePath);
+			System.out.println("length= "+length);
+			output = new String[length];
+			outputInt = new int[length];
 			int i=0;
-			while((riga=input.readLine())!=null) {
-				if(riga!=null) {
-					outputInt[i]=Integer.parseInt(riga);
-					i++;
-				}
+			while(length!=0 && (riga=input.readLine())!=null) {
+				outputInt[i]=Integer.parseInt(riga);
+				i++;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -98,9 +97,7 @@ public class ClassificationFile {
 	}
 	
 	public void resetFile() {
-		try (
-				FileWriter file = new FileWriter(filePath);
-				){
+		try ( FileWriter file = new FileWriter(filePath) ){
 			file.write("");
 		} catch (IOException e) {
 			e.printStackTrace();
